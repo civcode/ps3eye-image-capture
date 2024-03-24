@@ -21,8 +21,8 @@ class Webcam {
 
 public:
     Webcam(const std::string& device = "/dev/video0", 
-           int width = 640, 
-           int height = 480,
+           int width = 320, 
+           int height = 240,
            int fps = 30);
 
     ~Webcam();

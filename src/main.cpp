@@ -12,7 +12,8 @@ int main(int argc, char** argv) {
 
     cout << "hello/n";
 
-    Webcam webcam("/dev/video2", 640, 480, 60);
+    //Webcam webcam("/dev/video2", 640, 480, 60);
+    Webcam webcam("/dev/video2", 320, 240, 150);
 
     cv::namedWindow("img", 1);
 
@@ -25,6 +26,8 @@ int main(int argc, char** argv) {
 
     auto start = std::chrono::high_resolution_clock::now();
     while (int k = cv::waitKey(10) != 'q') {
+
+        static int cnt;
 
         buffer = webcam.get_buffer();
         //webcam.get_buffer();
@@ -39,7 +42,11 @@ int main(int argc, char** argv) {
         auto stop = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop-start);
         start = std::chrono::high_resolution_clock::now();
-        cout << "dt = " << duration.count() << endl;
+
+        if (cnt++%60 == 0) {
+            //cv::imshow("img", out);
+            cout << "dt = " << duration.count() << endl;
+        }
 
     }
 

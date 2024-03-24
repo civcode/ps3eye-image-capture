@@ -430,7 +430,8 @@ void Webcam::init_device(void)
         fmt.fmt.pix.width       = xres;
         fmt.fmt.pix.height      = yres;
         fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
-        fmt.fmt.pix.field       = V4L2_FIELD_INTERLACED;
+        //fmt.fmt.pix.field       = V4L2_FIELD_INTERLACED;
+        fmt.fmt.pix.field       = V4L2_FIELD_ANY;
 
         if (-1 == xioctl(fd, VIDIOC_S_FMT, &fmt))
             throw runtime_error("VIDIOC_S_FMT");
@@ -443,6 +444,8 @@ void Webcam::init_device(void)
         /* Note VIDIOC_S_FMT may change width and height. */
         xres = fmt.fmt.pix.width;
         yres = fmt.fmt.pix.height;
+
+        printf("/nxres: %d, yres: %d/n", (int)xres, (int)yres);
 
         stride = fmt.fmt.pix.bytesperline;
 
